@@ -1,0 +1,52 @@
+# -- 🚀 Netlify Configuration pour HailiteManager
+# -- Deployment, builds, environment variables
+
+[build]
+  # -- Commande de build pour la production
+  command = "npm run build"
+
+  # -- Répertoire à publier (sortie Next.js)
+  publish = ".next"
+
+# -- Variables d'environnement pour Netlify
+[build.environment]
+  NODE_VERSION = "20.11.0"
+
+  # -- Supabase (à remplir dans Netlify Dashboard)
+  # NEXT_PUBLIC_SUPABASE_URL = ""
+  # NEXT_PUBLIC_SUPABASE_ANON_KEY = ""
+  # SUPABASE_SERVICE_KEY = ""
+
+  # -- Anthropic (optionnel, ajouter plus tard)
+  # ANTHROPIC_API_KEY = ""
+
+  # -- App
+  # NEXT_PUBLIC_APP_URL = ""
+  NODE_ENV = "production"
+
+# -- Redirects pour Next.js App Router
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+# -- Headers de sécurité
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# -- Contexte de développement
+[context.develop]
+  command = "npm run dev"
+
+# -- Preview (branch deploys)
+[context.branch-deploy]
+  command = "npm run build"
+
+# -- Production
+[context.production]
+  command = "npm run build"
