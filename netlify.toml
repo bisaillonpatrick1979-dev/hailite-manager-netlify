@@ -8,6 +8,10 @@
   # -- Répertoire à publier (sortie Next.js)
   publish = ".next"
 
+# -- Plugin Next.js pour Netlify (requis pour App Router + API routes)
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
 # -- Variables d'environnement pour Netlify
 [build.environment]
   NODE_VERSION = "20.11.0"
@@ -22,13 +26,6 @@
 
   # -- App
   # NEXT_PUBLIC_APP_URL = ""
-  NODE_ENV = "production"
-
-# -- Redirects pour Next.js App Router
-[[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/:splat"
-  status = 200
 
 # -- Headers de sécurité
 [[headers]]
